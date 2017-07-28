@@ -7,6 +7,7 @@ define(function(require) {
     var routing = require('routing');
     var LoadingMask = require('oroui/js/app/views/loading-mask-view');
     var BaseView = require('oroui/js/app/views/base/view');
+    var ComponentManager = require('oroui/js/app/components/component-manager');
 
     AssignedTasksContentView = BaseView.extend({
         defaultPerPage: 5,
@@ -22,16 +23,42 @@ define(function(require) {
         },
 
         render: function() {
+            console.log('push test');
             this.reloadTasks();
+            this.initPageComponents();
             return this;
         },
 
+
+        /**
+         * Initializes all linked page components
+         * @param {Object|null} options
+         */
+        initPageComponents: function(options) {
+            return this._getComponentManager().init(options);
+        },
+
+
+        /**
+         * Getter for component manager
+         *
+         * @returns {ComponentManager}
+         */
+        _getComponentManager: function() {
+            if (!this.componentManager) {
+                let layout = this.getLayoutElement();
+                console.log(layout.find('.pull-left'));
+                this.componentManager = new ComponentManager(this.getLayoutElement());
+            }
+            return this.componentManager;
+        },
+
         onClickTask: function(event) {
-            var taskUrl = $(event.currentTarget).data('url');
-            mediator.execute('redirectTo', {url: taskUrl});
+            this.initPageComponents();
         },
 
         reloadTasks: function() {
+            this.initPageComponents();
             var view = this;
             var settings = this.model.get('settings');
             settings.perPage = settings.perPage || this.defaultPerPage;

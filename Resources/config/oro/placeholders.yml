@@ -8,6 +8,10 @@ placeholders:
             items:
                 oro_user_tasks: ~
 
+        cuantic_sidebar_widgets:
+            items:
+                task_workflow: ~
+
         view_navButtons_before:
             items:
                 oro_my_tasks_button: ~
@@ -15,6 +19,9 @@ placeholders:
     items:
         task_reminder_template:
             template: OroTaskBundle:Task:reminderTemplate.html.twig
+
+        task_workflow:
+            template: OroTaskBundle:Task:viewNavButtons.html.twig
 
         oro_user_tasks:
             template: OroTaskBundle:Task:userTasks.html.twig
