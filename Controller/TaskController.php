@@ -50,11 +50,9 @@ class TaskController extends Controller
     {
         /** @var TaskRepository $repository */
         $repository = $this->getRepository('Oro\Bundle\TaskBundle\Entity\Task');
-        $id = $this->getUser()->getId();
-        $perPage = (int)$perPage;
-        $tasks = $repository->getTasksAssignedTo($id, $perPage);
+        $entity = $repository->findOneBy([]);
 
-        return array('tasks' => $tasks);
+        return ['entity' => $entity];
     }
 
     /**

@@ -33,6 +33,14 @@ services:
         tags:
             - { name: oro_ui.view_action_provider, group: activity }
 
+    oro_task.provider.transition_button_provider:
+        class: Oro\Bundle\TaskBundle\Provider\SideTransitionButtonProvider
+        arguments:
+            - '@oro_workflow.registry'
+            - '@oro_workflow.provider.transition_route'
+        tags:
+           - { name: oro.action.extension.button_provider, priority: 10 }
+
     oro_task.calendar_provider:
         class: %oro_task.calendar_provider.class%
         arguments:
